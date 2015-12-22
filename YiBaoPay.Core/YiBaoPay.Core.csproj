@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9B482CBC-8012-4FB3-8729-383466E3468F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YiBaoPay.Core</RootNamespace>
+    <AssemblyName>YiBaoPay.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\YiBaoPay.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\BankCardInfoQuery.cs" />
+    <Compile Include="API\BasePay.cs" />
+    <Compile Include="API\BindBankCard.cs" />
+    <Compile Include="API\BindBankCardList.cs" />
+    <Compile Include="API\IPay.cs" />
+    <Compile Include="API\JavaDemonstration.cs" />
+    <Compile Include="API\PayAsk.cs" />
+    <Compile Include="API\PayConfirm.cs" />
+    <Compile Include="API\PayConfirmCallback.cs" />
+    <Compile Include="API\PayResultQuery.cs" />
+    <Compile Include="API\SmsCaptcha.cs" />
+    <Compile Include="API\UnbindBankCard.cs" />
+    <Compile Include="API\Withdraw.cs" />
+    <Compile Include="API\WithdrawAvaliableAmount.cs" />
+    <Compile Include="API\WithdrawQuery.cs" />
+    <Compile Include="LogSystem\ILog.cs" />
+    <Compile Include="LogSystem\LogInjection.cs" />
+    <Compile Include="LogSystem\NullLog.cs" />
+    <Compile Include="Models\BankCardInfoQueryRequest.cs" />
+    <Compile Include="Models\BankCardInfoQueryResponse.cs" />
+    <Compile Include="Models\BaseRequest.cs" />
+    <Compile Include="Models\BaseRequest.Extend.cs" />
+    <Compile Include="Models\BaseResponse.cs" />
+    <Compile Include="Models\BindBankCardConfirmRequest.cs" />
+    <Compile Include="Models\BindBankCardConfirmResponse.cs" />
+    <Compile Include="Models\BindBankCardListRequest.cs" />
+    <Compile Include="Models\BindBankCardListResponse.cs" />
+    <Compile Include="Models\BindBankCardAskRequest.cs" />
+    <Compile Include="Models\BindBankCardAskResponse.cs" />
+    <Compile Include="Models\Enumerations.cs" />
+    <Compile Include="Models\IBaseRequest.cs" />
+    <Compile Include="Models\JavaDemoRequest.cs" />
+    <Compile Include="Models\JavaDemoResponse.cs" />
+    <Compile Include="Models\JsonNoSearializeAttribute.cs" />
+    <Compile Include="Models\PayAskRequest.cs" />
+    <Compile Include="Models\PayAskResponse.cs" />
+    <Compile Include="Models\PayConfirmCallbackResponse.cs" />
+    <Compile Include="Models\PayConfirmRequest.cs" />
+    <Compile Include="Models\PayConfirmResponse.cs" />
+    <Compile Include="Models\PayResultQueryRequest.cs" />
+    <Compile Include="Models\PayResultQueryResponse.cs" />
+    <Compile Include="Models\ServerResponse.cs" />
+    <Compile Include="Models\SmsCaptchaRequest.cs" />
+    <Compile Include="Models\SmsCaptchaResponse.cs" />
+    <Compile Include="Models\UnbindBankCardRequest.cs" />
+    <Compile Include="Models\UnbindBankCardResponse.cs" />
+    <Compile Include="Models\WithdrawAvaliableAmountRequest.cs" />
+    <Compile Include="Models\WithdrawAvaliableAmountResponse.cs" />
+    <Compile Include="Models\WithdrawQueryResponse.cs" />
+    <Compile Include="Models\WithdrawQueryRequest.cs" />
+    <Compile Include="Models\WithdrawRequest.cs" />
+    <Compile Include="Models\WithdrawResponse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Configurations.cs" />
+    <Compile Include="Utils\ErrorHandle.cs" />
+    <Compile Include="Utils\HttpUtils.cs" />
+    <Compile Include="Utils\SecurityUtils.cs" />
+    <Compile Include="Utils\ParamUtils.cs" />
+    <Compile Include="Utils\NetUtils.cs" />
+    <Compile Include="Utils\Utils.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

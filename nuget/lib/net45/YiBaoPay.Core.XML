@@ -1,0 +1,1456 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YiBaoPay.Core</name>
+    </assembly>
+    <members>
+        <member name="T:YiBaoPay.Core.API.BankCardInfoQuery">
+            <summary>
+            银行卡信息查询
+            此接口可以用来根据用户输入的银行卡号查询银行卡的借贷类型、银行名称等信息
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.BasePay`2">
+            <summary>
+            支付相关基类
+            </summary>
+            <typeparam name="TReqeust">请求参数类型</typeparam>
+            <typeparam name="TResponse">返回参数类型</typeparam>
+        </member>
+        <member name="T:YiBaoPay.Core.API.IPay`2">
+            <summary>
+            
+            </summary>
+            <typeparam name="TRequest"></typeparam>
+            <typeparam name="TResponse"></typeparam>
+        </member>
+        <member name="T:YiBaoPay.Core.API.BindBankCardAsk">
+            <summary>
+            绑定银行卡请求
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.BindBankCardConfirm">
+            <summary>
+            确认绑定银行卡
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.BindBankCardList">
+            <summary>
+            查询绑卡信息列表
+            查询用户的绑卡信息时调用，只返回未过绑卡有效期且未被解绑的绑卡信息。
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.PayAsk">
+            <summary>
+            请求支付
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.PayConfirm">
+            <summary>
+            确认支付
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.PayConfirmCallback">
+            <summary>
+            确认支付异步通知回报
+            易宝异步通知商户支付请求传过来的 callbackurl 地址,每 2 秒通知一次，共通知 3 次. 
+            商户收到通知后需要回写，需要返回字符串大写的”SUCCESS”，否则会一直通知多次。
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.PayResultQuery">
+            <summary>
+            支付结果查询
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.SmsCaptcha">
+            <summary>
+            发送短信校验码
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.UnbindBankCard">
+            <summary>
+            解绑卡接口
+            该接口用于卡信息(如银行预留手机号)变更后的解绑使用, 解绑后只能绑定原卡, 不可换卡绑定.
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.WithdrawAvaliableAmount">
+            <summary>
+            可提现余额接口
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.API.WithdrawQuery">
+            <summary>
+            提现查询
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.LogSystem.ILog">
+            <summary>
+            日志模块接口
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.LogSystem.ILog.Info(System.String,System.String)">
+            <summary>
+            信息日志
+            </summary>
+            <param name="message"></param>
+            <param name="position"></param>
+        </member>
+        <member name="M:YiBaoPay.Core.LogSystem.ILog.Error(System.String,System.String)">
+            <summary>
+            错误日志
+            </summary>
+            <param name="message"></param>
+            <param name="position"></param>
+        </member>
+        <member name="T:YiBaoPay.Core.LogSystem.LogInjection">
+            <summary>
+            日志模块注入
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.LogSystem.LogInjection.NullableLog">
+            <summary>
+            默认日志
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.LogSystem.LogInjection.InjectLog(YiBaoPay.Core.LogSystem.ILog)">
+            <summary>
+            注入日志模块
+            </summary>
+            <param name="log">日志模块</param>
+        </member>
+        <member name="P:YiBaoPay.Core.LogSystem.LogInjection.Log">
+            <summary>
+            获取日志
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BankCardInfoQueryRequest">
+            <summary>
+            银行卡信息查询接口 请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseRequest.MerchantAccount">
+            <summary>
+            商户编号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseRequest.Sign">
+            <summary>
+            签名
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.Models.BankCardInfoQueryRequest.Send">
+            <summary>
+            发送银行卡查询
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BankCardInfoQueryRequest.CardNo">
+            <summary>
+            卡号
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BankCardInfoQueryResponse">
+            <summary>
+            银行卡信息查询接口 返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseResponse.MerchantAccount">
+            <summary>
+            商户账号编号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseResponse.Sign">
+            <summary>
+            易宝使用自己生成的 RSA 私钥对除参数 sign 以外的其他参数进行字母排序后串成的字符串进行签名
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseResponse.Error_Code">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseResponse.Error_Msg">
+            <summary>
+            错误描述
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BankCardInfoQueryResponse.CardNo">
+            <summary>
+            卡号 原值返回
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BankCardInfoQueryResponse.CardType">
+            <summary>
+            卡片类型
+            1：储蓄卡 2：信用卡 -1 未知银行卡
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BankCardInfoQueryResponse.ECardType">
+            <summary>
+            卡片类型
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.BankCardInfoQueryResponse.ECardType.Debit">
+            <summary>
+            储蓄卡
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.BankCardInfoQueryResponse.ECardType.Credit">
+            <summary>
+            信用卡
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.BankCardInfoQueryResponse.ECardType.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BaseRequestIdentity">
+            <summary>
+            拥有IdentityId和IdentityType字段
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.BaseRequestIdentity._identityType">
+            <summary>
+            用户标识类型
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.Models.BaseRequestIdentity.SetIdentityType(YiBaoPay.Core.Models.Enumerations.IdentityType)">
+            <summary>
+            设置 用户标识类型 IdentityType
+            </summary>
+            <param name="newIdType"></param>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseRequestIdentity.IdentityId">
+            <summary>
+            用户标识 原值返回
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseRequestIdentity.IdentityType">
+            <summary>
+            用户标识类型
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BaseRequestIdentityCard">
+            <summary>
+            IdentityId, IdentityType, Card_Top, Card_Last
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseRequestIdentityCard.Card_Top">
+            <summary>
+            卡号前6位 
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BaseRequestIdentityCard.Card_Last">
+            <summary>
+            卡号后4位 
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BindBankCardConfirmRequest">
+            <summary>
+            确定绑卡请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardConfirmRequest.RequestId">
+            <summary>
+            绑卡请求号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardConfirmRequest.ValidateCode">
+            <summary>
+            短信验证码
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BindBankCardConfirmResponse">
+            <summary>
+            确认绑卡返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardConfirmResponse.RequestId">
+            <summary>
+            绑卡请求号 原样返回商户所传
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardConfirmResponse.BankCode">
+            <summary>
+            银行编码
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardConfirmResponse.Card_Top">
+            <summary>
+            卡号前6位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardConfirmResponse.Card_Last">
+            <summary>
+            卡号候4位
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BindBankCardListRequest">
+            <summary>
+            查询绑卡信息列表 请求参数
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BindBankCardListResponse">
+            <summary>
+            查询绑卡信息列表 返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.IdentityId">
+            <summary>
+            用户标识 原值返回
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.IdentityType">
+            <summary>
+            用户标识类型
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.GetIdentityType">
+            <summary>
+            获取用户标识类型
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.CardList">
+            <summary>
+            绑卡列表
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.CardInfo.BindId">
+            <summary>
+            绑卡 ID
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.CardInfo.Card_Top">
+            <summary>
+            卡号前 6 位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.CardInfo.Card_Last">
+            <summary>
+            卡号后 4 位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.CardInfo.Card_Name">
+            <summary>
+            卡名称
+            例如 "中国银行信用卡"
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.CardInfo.BindValidthru">
+            <summary>
+            绑卡有效期
+            最后期限，时间戳，例如: 1361324896, 精确到秒
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.CardInfo.Phone">
+            <summary>
+            银行预留手机号
+            中间 4 位屏蔽, 例如"138****1234"
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardListResponse.CardInfo.BankCode">
+            <summary>
+            银行缩写，如 ICBC
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BindBankCardAskRequest">
+            <summary>
+            调用绑定银行卡请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.RequestId">
+            <summary>
+            绑卡请求号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.CardNo">
+            <summary>
+            银行卡号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.IdcardType">
+            <summary>
+            证件类型
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.IdcardNo">
+            <summary>
+            证件号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.UserName">
+            <summary>
+            持卡人姓名
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.Phone">
+            <summary>
+            银行预留手机号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.RegisterPhone">
+            <summary>
+            用户注册手机号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.RegisterDate">
+            <summary>
+            用户注册日期
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.RegisterIp">
+            <summary>
+            用户注册ip
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.RegisterIdCardType">
+            <summary>
+            用户注册证件类型
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.RegisterIdCardNo">
+            <summary>
+            用户注册证件号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.RegisterContact">
+            <summary>
+            用户注册联系方式
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.Os">
+            <summary>
+            用户使用的操作系统
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.Imei">
+            <summary>
+            设备唯一标示
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.UserIp">
+            <summary>
+            用户请求ip
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskRequest.Ua">
+            <summary>
+            用户使用的浏览器信息
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.BindBankCardAskResponse">
+            <summary>
+            调用绑定银行卡返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskResponse.RequestId">
+            <summary>
+            绑卡请求号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskResponse.CodeSender">
+            <summary>
+            短信验证码发送方
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.BindBankCardAskResponse.SmsCode">
+            <summary>
+            短信验证码
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.Enumerations">
+            <summary>
+            枚举定义
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.Enumerations.PayStatus">
+            <summary>
+            支付状态
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.PayStatus.Undefined">
+            <summary>
+            未定义
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.PayStatus.Fail">
+            <summary>
+            支付失败
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.PayStatus.Success">
+            <summary>
+            支付成功
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.PayStatus.UnHandle">
+            <summary>
+            未处理
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.PayStatus.Handling">
+            <summary>
+            处理中
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.Enumerations.IdentityType">
+            <summary>
+            用户表示类型
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.IdentityType.Imei">
+            <summary>
+            IMEI
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.IdentityType.MacAddress">
+            <summary>
+            MAC地址
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.IdentityType.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.IdentityType.UserEmail">
+            <summary>
+            用户邮件
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.IdentityType.UserPhone">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.IdentityType.UserIdCard">
+            <summary>
+            用户手机号
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.IdentityType.UserPaperProtocol">
+            <summary>
+            用户纸质订单协议号
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.Enumerations.WithdrawStatus">
+            <summary>
+            提现查询 返回状态
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.WithdrawStatus.Doing">
+            <summary>
+            处理中
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.WithdrawStatus.Failure">
+            <summary>
+            提现失败
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.WithdrawStatus.Refund">
+            <summary>
+            提现退回
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.WithdrawStatus.Success">
+            <summary>
+            提现成功
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Models.Enumerations.WithdrawStatus.Unknow">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.JsonNoSearializeAttribute">
+            <summary>
+            不参与JSON序列化
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.PayAskRequest">
+            <summary>
+            支付请求参数
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.Models.PayAskRequest.Send">
+            <summary>
+            发送请求
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.OrderId">
+            <summary>
+            商户订单号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.TransTime">
+            <summary>
+            交易时间
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.Currency">
+            <summary>
+            交易币种 (默认 156 人民币 (当前仅支持人民币)
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.Amount">
+            <summary>
+            交易金额
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.ProductName">
+            <summary>
+            商品名称 (最长50位)
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.ProductDesc">
+            <summary>
+            商品描述 (最长 200 位)
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.OrderExpireDate">
+            <summary>
+            订单有效期
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.OrderExpDate">
+            <summary>
+            订单有效期
+            单位:分钟, 例如:60, 表示订单有效期为 60 分钟
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.CallbackUrl">
+            <summary>
+            回调地址
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.Imei">
+            <summary>
+            设备唯一标识
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.UserIp">
+            <summary>
+            用户请求ip
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskRequest.Ua">
+            <summary>
+            用户使用的浏览器信息
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.PayAskResponse">
+            <summary>
+            支付请求返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskResponse.OrderId">
+            <summary>
+            商户订单号
+            原样返回商户所传
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskResponse.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskResponse.SmsConfirm">
+            <summary>
+            短信确认
+            0：建议不需要进行短信校验 1：建议需要进行短信校验
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayAskResponse.CodeSender">
+             <summary>
+            短信验证码发送方 
+             YEEPAY：易宝发送 BANK：银行发送
+             </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.PayConfirmCallbackResponse">
+            <summary>
+            确认支付异步回调 第三方支付(易宝支付)回调请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmCallbackResponse.OrderId">
+            <summary>
+            商户订单号
+            商户生成的唯一订单号，最长 50 位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmCallbackResponse.YbOrderId">
+            <summary>
+            易宝交易流水号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmCallbackResponse.Amount">
+            <summary>
+            交易金额 以"分"为单位的整型
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmCallbackResponse.IdentityId">
+            <summary>
+            最长 50 位，商户生成的用户唯一标识
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmCallbackResponse.Card_Top">
+            <summary>
+            卡号前 6 位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmCallbackResponse.Card_Last">
+            <summary>
+            卡号后 4 位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmCallbackResponse.Status">
+            <summary>
+            支付状态 
+            0: 失败 1: 成功
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmCallbackResponse.ErrorCode">
+            <summary>
+            错误码
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmCallbackResponse.ErrorMsg">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.PayConfirmRequest">
+            <summary>
+            确认支付请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmRequest.OrderId">
+            <summary>
+            客户订单号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmRequest.ValidateCode">
+            <summary>
+            短信校验码
+            测试环境下不会真实发送短信验证码, 默认为 123456.
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.PayConfirmResponse">
+            <summary>
+            确认支付返回参数
+            
+            通过短信校验码方式确认支付，该接口为异步接口，支付结果将异步发送给支付请求时提供的回调地址.
+            注：此接口成功状态的返回, 只是调用此接口成功, 具体的支付结果将异步发送给支付请求时提供的回调地址.
+            商户在调用支付请求接口后, 可以直接调用确认支付接口完成支付(直接调用确认支付接口时, validatecode 参数不传值，或者传空).
+            商户在调用支付请求接口后, 如果易宝支付返回建议进行短信校验, 那么可以调用短信验证码发送接口给用户发送短信验证码, 然后让用户在商户的交互解密输入接收到的短信验证码, 最后调用本确认支付接口完成支付.
+            调用确认支付接口时, 如果短信验证码错误, 那么该接口会同步返回验证码错误提示, 商户可以让用户在交互界面重新输入短信验证码, 或者重新调用短信发送接口给用户发送新的验证码
+            (注: 每笔订单最多支持发送 5 次短信验证码, 同一笔订单调用发送短信验证码间隔需≥50s, 短信验证码为 6 位随机数字, 同一笔订单最多有 5 次失败校验)
+            调用确认支付结果成功后, 支付结果不管成功还是失败都会回调, 若想确认该笔订单是否成功可调用 交易记录查询接口
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmResponse.OrderId">
+            <summary>
+            商户订单号
+            原样返回商户所传
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmResponse.YbOrderId">
+            <summary>
+            易宝交易流水号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayConfirmResponse.Amount">
+            <summary>
+            交易金额 以分为单位
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.PayResultQueryRequest">
+            <summary>
+            支付结果查询 请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryRequest.OrderId">
+            <summary>
+            客户订单号
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.PayResultQueryResponse">
+            <summary>
+            支付结果查询 返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.OrderId">
+            <summary>
+            客户订单号 
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.YbOrderId">
+            <summary>
+            易宝交易流水号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.Amount">
+            <summary>
+            支付金额 以"分"为单位的整型
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.BindId">
+            <summary>
+            绑卡 ID
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.BindValidthru">
+            <summary>
+            绑卡有效期 
+            最后期限, 时间戳, 例如: 1361324896, 精确到秒
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.Bank">
+            <summary>
+            银行信息
+            支付卡所属银行的名称
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.BankCode">
+            <summary>
+            银行缩写
+            银行缩写, 如 ICBC
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.CloseTime">
+            <summary>
+            支付时间
+            返回支付时间为， 交易变成当前状态的时间： closetime
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.BankCardType">
+            <summary>
+            银行卡类型
+            1：储蓄卡 2：信用卡
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.LastNo">
+            <summary>
+            卡号后 4 位
+            支付卡卡号后 4 位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.IdentityId">
+            <summary>
+            用户标识
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.IdentityType">
+            <summary>
+            用户标识类型
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.Status">
+            <summary>
+            支付状态
+            0：失败 1：成功 2：未处理 3：处理中 
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.GetStatus">
+            <summary>
+            获取可读的支付状态
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.ErrorCode">
+            <summary>
+            错误码
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.PayResultQueryResponse.ErrorMsg">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.ServerResponse.Data">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.ServerResponse.EncryptKey">
+            <summary>
+            签名
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.ServerResponse.IsSuccess">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.ServerResponse.Error_Code">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.ServerResponse.Error_Msg">
+            <summary>
+            错误描述
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.SmsCaptchaRequest">
+            <summary>
+            发送短信验证码请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.SmsCaptchaRequest.OrderId">
+            <summary>
+            客户订单号
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.SmsCaptchaResponse">
+            <summary>
+            发送短信验证码请求返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.SmsCaptchaResponse.OrderId">
+            <summary>
+            商户订单号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.SmsCaptchaResponse.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.SmsCaptchaResponse.SendTime">
+            <summary>
+            短信发生时间
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.UnbindBankCardRequest">
+            <summary>
+            解绑卡接口 请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.UnbindBankCardRequest.BindId">
+            <summary>
+            绑卡 ID
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.UnbindBankCardResponse">
+            <summary>
+            解绑卡接口 返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.UnbindBankCardResponse.BindId">
+            <summary>
+            绑卡 ID 原值返回
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.UnbindBankCardResponse.IdentityId">
+            <summary>
+            用户标识 原值返回
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.UnbindBankCardResponse.IdentityType">
+            <summary>
+            用户标识类型
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.WithdrawAvaliableAmountRequest">
+            <summary>
+            可提现余额接口 请求参数
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.WithdrawAvaliableAmountResponse">
+            <summary>
+            可提现余额接口 返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawAvaliableAmountResponse.ValidAmount">
+            <summary>
+            可提现余额 单位为分
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.WithdrawQueryResponse">
+            <summary>
+            提现查询接口 返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawQueryResponse.RequestId">
+            <summary>
+            商户请求号 
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawQueryResponse.YbDrawFlowId">
+            <summary>
+            易宝流水号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawQueryResponse.Amount">
+            <summary>
+            提现金额 以分为单位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawQueryResponse.Card_Top">
+            <summary>
+            卡号前 6 位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawQueryResponse.Card_Last">
+            <summary>
+            卡号后 4 位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawQueryResponse.Status">
+            <summary>
+            提现状态
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.WithdrawQueryRequest">
+            <summary>
+            提现查询接口 请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawQueryRequest.RequestId">
+            <summary>
+            商户请求号
+            商户生成的唯一提现订单号， 最长 50 位；商户订单号和易宝交易流水号不 可同时为空，都不为空时以易宝交易流水号为准。
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawQueryRequest.YbDrawFlowId">
+            <summary>
+            易宝流水号
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.WithdrawRequest">
+            <summary>
+            提现请求参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawRequest.RequestId">
+            <summary>
+            商户请求号
+            商户生成的唯一提现订单号， 最长 50 位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawRequest.Amount">
+            <summary>
+            提现金额 分为单位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawRequest.Currency">
+            <summary>
+            币种
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawRequest.DrawType">
+            <summary>
+            提现类型
+            NATRALDAY_NORMAL (自然日 t+1)
+            NATRALDAY_URGENT (自然日 t+0)
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawRequest.Imei">
+            <summary>
+            设备唯一标识
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawRequest.UserIp">
+            <summary>
+            用户请求Ip
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawRequest.Ua">
+            <summary>
+            用户使用的浏览器信息
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Models.WithdrawResponse">
+            <summary>
+            提现返回参数
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawResponse.RequestId">
+            <summary>
+            商户请求号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawResponse.YbDrawFlowId">
+            <summary>
+            易宝流水号
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawResponse.Amount">
+            <summary>
+            提现金额 以分为单位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawResponse.Card_Top">
+            <summary>
+            卡号前6位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawResponse.Card_Last">
+            <summary>
+            卡号后4位
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Models.WithdrawResponse.Status">
+            <summary>
+            提现请求状态
+            FAILURE：请求失败 SUCCESS：请求成功 UNKNOW:未知
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.ConfigUtil">
+            <summary>
+            获取配置实用方法
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.ConfigUtil.Initial(System.Boolean)">
+            <summary>
+            初始化变量
+            </summary>
+            <param name="devMode"></param>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.ConfigUtil.GetConfigurations">
+            <summary>
+            获取配置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.ConfigUtil.Refresh">
+            <summary>
+            刷新配置
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.ConfigUtil.Config">
+            <summary>
+            配置实体
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.ConfigUtil.ConfigPath">
+            <summary>
+            配置文件路径
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.Configurations">
+            <summary>
+            配置实体类
+            </summary>
+        </member>
+        <member name="F:YiBaoPay.Core.Utils.Configurations._developMode">
+            <summary>
+            开发者模式
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.IsDevelopMode">
+            <summary>
+            是否是开发者模式
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.CurrentConfig">
+            <summary>
+            当前环境使用的配置
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.DevelopConfig">
+            <summary>
+            开发环境下的配置
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.OnlineConfig">
+            <summary>
+            上线环境下的配置
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.CurrentApiUrl">
+            <summary>
+            当前环境使用的URL
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.DevApiUrl">
+            <summary>
+            开发时使用的接口地址
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.OnlineApiUrl">
+            <summary>
+            上线的接口地址
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.Configurations.YiBaoConfig">
+            <summary>
+            易宝密钥相关配置
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.YiBaoConfig.MerchantAesKey">
+            <summary>
+            商户随机生成 AESKey,用于 AES 加密（长度为 16 位，可以用 26 个字母和数字组成）
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.YiBaoConfig.MerchantAccount">
+            <summary>
+            商户账户编号（如：YB01000000258），可从商户后台获取
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.YiBaoConfig.MerchantPrivateKeyBase64">
+            <summary>
+            商户私钥，由商户用 RSA 算法生成，对应的公钥已在易宝商户后台报备
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.YiBaoConfig.MerchantPublicKeyBase64">
+            <summary>
+            商户公钥，由商户用 RSA 算法生成，该公钥已在易宝商户后台报备
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.YiBaoConfig.YbPublicKeyBase64">
+            <summary>
+            易宝公钥，商户将自己的公钥在商户后台报备后获取的易宝支付分配的公钥
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.Configurations.ApiUrl">
+            <summary>
+            接口URL
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.JavaDemostration">
+            <summary>
+            Java Demonstration
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.BindBankCardAsk">
+            <summary>
+            绑定银行卡请求
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.BindBankCardConfirm">
+            <summary>
+            确认绑定银行卡
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.SmsCaptcha">
+            <summary>
+            发送短信验证码接口
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.PayAsk">
+            <summary>
+            支付请求接口
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.PayConfirm">
+            <summary>
+            确认支付
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.PayResultQuery">
+            <summary>
+            支付结果查询
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.Withdraw">
+            <summary>
+            提现
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.WithdrawQuery">
+            <summary>
+            提现查询
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.UnbindBankCard">
+            <summary>
+            解绑卡接口
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.BindBankCardList">
+            <summary>
+            绑卡信息列表
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.BankCardInfoQuery">
+            <summary>
+            银行卡信息查询
+            </summary>
+        </member>
+        <member name="P:YiBaoPay.Core.Utils.Configurations.ApiUrl.WithdrawAvaliableAmount">
+            <summary>
+            可提现余额
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.HttpUtils`1">
+            <summary>
+            接口请求实体类
+            </summary>
+            <typeparam name="TRequest">接口请求参数类型</typeparam>
+        </member>
+        <member name="F:YiBaoPay.Core.Utils.HttpUtils`1.url">
+            <summary>
+            URL
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.HttpUtils`1.#ctor(System.String,System.String)">
+            <summary>
+            初始化URL
+            </summary>
+            <param name="u">接口URL</param>
+            <param name="m">HttpMethod</param>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.HttpUtils`1.Send(`0)">
+            <summary>
+            发送网络请求
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.SecurityUtils">
+            <summary>
+            安全实用类
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.SecurityUtils.SignData(System.Byte[],System.String)">
+            <summary>
+            签名数据
+            </summary>
+            <param name="value">数据</param>
+            <param name="privateKey">PEM格式的base64私钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.SecurityUtils.VerifyData(System.Byte[],System.Byte[],System.String)">
+            <summary>
+            验签
+            </summary>
+            <param name="value">数据</param>
+            <param name="sign">签名</param>
+            <param name="publicKey">PEM格式的base64公钥</param>
+            <returns>是否验证成功</returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.SecurityUtils.AesEncrypt(System.String,System.Byte[])">
+            <summary>
+            AES加密
+            </summary>
+            <param name="data"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.SecurityUtils.AesDecrypt(System.Byte[],System.Byte[])">
+            <summary>
+            AES解密
+            </summary>
+            <param name="data"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.ParamUtils`1">
+            <summary>
+            参数实体类
+            </summary>
+            <typeparam name="TRequest">请求参数</typeparam>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.ParamUtils`1.GetSortedParas">
+            <summary>
+            获取排序后的参数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.ParamUtils`1.GetReqParams">
+            <summary>
+            获取发送参数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.ParamUtils`1.ValuesToString">
+            <summary>
+            获取排序后的所有参数值字符
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.RequestParam">
+            <summary>
+            接口请求实体
+            </summary>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.NetUtils">
+            <summary>
+            网络请求的静态方法
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.NetUtils.PostRequest``2(System.String,``0,System.String)">
+            <summary>
+            POST请求
+            </summary>
+            <typeparam name="TRequest">请求参数类型</typeparam>
+            <typeparam name="TResponse">相应数据类型</typeparam>
+            <param name="url">请求的URL</param>
+            <param name="request">发送的数据</param>
+            <param name="contentType">Content-Type</param>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.NetUtils.GetRequest``2(System.String,``0)">
+            <summary>
+            GET请求
+            </summary>
+            <typeparam name="TResponse"></typeparam>
+            <typeparam name="TRequest"></typeparam>
+            <param name="url"></param>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.NetUtils.GetRequest``1(System.String)">
+            <summary>
+            GET请求
+            </summary>
+            <typeparam name="TResponse"></typeparam>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.NetUtils.BaseRequest(System.String,System.String,System.Byte[],System.Action{System.Net.HttpWebRequest})">
+            <summary>
+            Web请求
+            </summary>
+            <param name="url"></param>
+            <param name="method"></param>
+            <param name="data"></param>
+            <param name="beforeRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.NetUtils.UtilToJson(System.Object)">
+            <summary>
+            序列化成JSON
+            </summary>
+            <param name="obj">带序列化的实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.NetUtils.UtilToKeyValues(System.Object,System.Func{System.String,System.String})">
+            <summary>
+            序列化成键值对
+            </summary>
+            <param name="obj">对象</param>
+            <param name="encode">编码方式</param>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.NetUtils.UtilParseJson``1(System.String)">
+            <summary>
+            JSON反序列化
+            </summary>
+            <typeparam name="T">反序列化返回后的类型</typeparam>
+            <param name="json">待反序列化的JSON</param>
+            <returns></returns>
+        </member>
+        <member name="T:YiBaoPay.Core.Utils.Utils">
+            <summary>
+            实用类
+            </summary>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.Utils.GetNowTimeStamp">
+            <summary>
+            获取时间戳
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YiBaoPay.Core.Utils.Utils.GetTimeStamp(System.DateTime)">
+            <summary>
+            获取time的时间戳
+            </summary>
+            <param name="time">时间</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

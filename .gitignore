@@ -194,3 +194,6 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+YiBaoPay.Test/data/config.json
+YiBaoPay.Test/data/config.bin
